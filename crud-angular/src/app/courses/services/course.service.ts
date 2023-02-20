@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +26,12 @@ export class CourseService {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
   
   getCourses(): Observable<any> {
-    return of(this.mock);
+    // return of(this.mock);
+    return this.http.get(environment.api + '/courses');
   }
 }
