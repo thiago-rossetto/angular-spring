@@ -3,17 +3,33 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
-  <form>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="name" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="data.course.name">
+      <input 
+        type="text" 
+        class="form-control" 
+        formControlName="name" 
+        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+      />
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors['required']">Nome é um campo obrigatório.</div>
+      </div>
     </div>
     <div class="mb-3">
       <label for="category" class="form-label">Categoria</label>
-      <input type="text" class="form-control" id="category" name="category" [(ngModel)]="data.course.category">
+      <input 
+        type="text" 
+        class="form-control" 
+        formControlName="category" 
+        [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
+      />
+      <div *ngIf="submitted && f['category'].errors" class="invalid-feedback">
+        <div *ngIf="f['category'].errors['required']">Categoria é um campo obrigatório.</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-primary">Save</button>
     </div>
   </form>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary" (click)="activeModal.dismiss('Cross click')">Save</button>
 </div>

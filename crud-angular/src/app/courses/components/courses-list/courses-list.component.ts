@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../../services/course.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { ModalCoursesComponent } from '../../modals/modal-courses/modal-courses.component';
 import { Course } from '../../models/course.model';
 import { DataModal } from '../../models/dataModal.model';
-
-import { ModalCoursesComponent } from '../../modals/modal-courses/modal-courses.component';
-import { ToasterService } from 'src/assets/toaster.service';
+import { CourseService } from '../../services/course.service';
 
 
 @Component({
@@ -20,15 +18,13 @@ export class CoursesListComponent implements OnInit {
 
   constructor(
     private service: CourseService,
-    private modal: NgbModal,
-    private toastr: ToasterService
+    private modal: NgbModal
   ) { }
 
   ngOnInit() {
     this.service.getCourses().subscribe(
       (res) => {
         this.coursesList = res;
-        this.toastr.success('Hello world!')
       }
     )
   }
