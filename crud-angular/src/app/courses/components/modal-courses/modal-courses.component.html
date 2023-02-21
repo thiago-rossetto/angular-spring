@@ -2,8 +2,8 @@
   <h4 class="modal-title" id="modal-basic-title">{{ data.action === "add" ? 'Adicionar curso' : 'Editar curso #' + data.course.id  }}</h4>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
-<div class="modal-body">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
     <div class="mb-3">
       <label for="name" class="form-label">Nome</label>
       <input 
@@ -28,8 +28,8 @@
         <div *ngIf="f['category'].errors['required']">Categoria é um campo obrigatório.</div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-outline-primary">Save</button>
-    </div>
-  </form>
-</div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-primary">Save</button>
+  </div>
+</form>

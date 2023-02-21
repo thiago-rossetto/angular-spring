@@ -3,14 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
+import { ModalCoursesComponent } from './components/modal-courses/modal-courses.component';
+import { ModalDeleteCourseComponent } from './components/modal-delete-course/modal-delete-course.component';
 import { CoursesRoutingModule } from './courses-routing.module';
-import { ModalCoursesComponent } from './modals/modal-courses/modal-courses.component';
-
 
 @NgModule({
   declarations: [
     CoursesListComponent,
-    ModalCoursesComponent
+    ModalCoursesComponent,
+    ModalDeleteCourseComponent
   ],
   imports: [
     CommonModule,
