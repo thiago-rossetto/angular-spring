@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ data.action === "add" ? 'Adicionar curso' : 'Editar curso #' + data.course.id  }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="data.course.name">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Categoria</label>
+      <input type="text" class="form-control" id="category" name="category" [(ngModel)]="data.course.category">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-primary" (click)="activeModal.dismiss('Cross click')">Save</button>
+</div>

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../services/course.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Course } from '../../models/course.model';
+import { DataModal } from '../../models/dataModal.model';
+
+import { ModalCoursesComponent } from '../../modals/modal-courses/modal-courses.component';
 
 @Component({
   selector: 'app-courses-list',
@@ -13,7 +17,8 @@ export class CoursesListComponent implements OnInit {
   coursesList: Array<Course> = [];
 
   constructor(
-    private service: CourseService
+    private service: CourseService,
+    private modal: NgbModal
   ) { }
 
   ngOnInit() {
@@ -22,6 +27,26 @@ export class CoursesListComponent implements OnInit {
         this.coursesList = res;
       }
     )
+  }
+
+  openModal(action: string, course?: Course): void {
+    const modal = this.modal.open(ModalCoursesComponent, {
+      size: 'md',
+      centered: true,
+      keyboard: false,
+      backdrop: 'static'
+    });
+
+    const dataModal: DataModal= {
+      action: action,
+      course: {
+        name: !course ? "" : course.name,
+        category: !course ? "" : course.category,
+        id: !course ? undefined : course.id
+      }
+    }
+
+    modal.componentInstance.data = dataModal;
   }
 
 }

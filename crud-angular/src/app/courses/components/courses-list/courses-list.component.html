@@ -39,7 +39,7 @@
 
 <div class="container">
   <div class="">
-    <button type="button" class="btn btn-outline-primary float-right mb-3">+ Cadastrar Curso</button>
+    <button type="button" class="btn btn-outline-primary float-right mb-3" (click)="openModal('add', undefined)">Adicionar Curso</button>
   </div>
   <table class="table table-hover">
     <thead>
@@ -57,7 +57,7 @@
         <td>{{ item.category }}</td>
         <td>
           <div class="text-center">
-            <button type="button" class="btn btn-primary btn-sm">Editar</button>
+            <button type="button" class="btn btn-primary btn-sm" (click)="openModal('edit', item)">Editar</button>
             <button type="button" class="btn btn-danger btn-sm ml-5">Excluir</button>
           </div>
         </td>
