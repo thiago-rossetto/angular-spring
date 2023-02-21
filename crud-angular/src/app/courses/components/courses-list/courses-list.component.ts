@@ -6,6 +6,8 @@ import { Course } from '../../models/course.model';
 import { DataModal } from '../../models/dataModal.model';
 
 import { ModalCoursesComponent } from '../../modals/modal-courses/modal-courses.component';
+import { ToasterService } from 'src/assets/toaster.service';
+
 
 @Component({
   selector: 'app-courses-list',
@@ -18,13 +20,15 @@ export class CoursesListComponent implements OnInit {
 
   constructor(
     private service: CourseService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private toastr: ToasterService
   ) { }
 
   ngOnInit() {
     this.service.getCourses().subscribe(
       (res) => {
         this.coursesList = res;
+        this.toastr.success('Hello world!')
       }
     )
   }
