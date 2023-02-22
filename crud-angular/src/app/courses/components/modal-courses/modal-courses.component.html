@@ -18,12 +18,23 @@
     </div>
     <div class="mb-3">
       <label for="category" class="form-label">Categoria</label>
-      <input 
+      <!-- <input 
         type="text" 
         class="form-control" 
         formControlName="category" 
         [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
-      />
+      /> -->
+      <select 
+        class="form-select" 
+        aria-label="Default select example"
+        formControlName="category" 
+        [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
+      >
+        <option value="" disabled>Selecione uma opção</option>
+        <option value="Front-end">Front-end</option>
+        <option value="Back-end">Back-end</option>
+        <option value="Full-stack">Full-stack</option>
+      </select>
       <div *ngIf="submitted && f['category'].errors" class="invalid-feedback">
         <div *ngIf="f['category'].errors['required']">Categoria é um campo obrigatório.</div>
       </div>
