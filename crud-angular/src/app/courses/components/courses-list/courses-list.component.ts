@@ -6,6 +6,7 @@ import { DataModal } from '../../models/dataModal.model';
 import { CourseService } from '../../services/course.service';
 import { ModalCoursesComponent } from '../modal-courses/modal-courses.component';
 import { ModalDeleteCourseComponent } from '../modal-delete-course/modal-delete-course.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-courses-list',
