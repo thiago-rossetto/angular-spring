@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToasterService } from 'src/assets/toaster.service';
 
 import { DataModal } from '../../models/dataModal.model';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-modal-courses',
@@ -12,6 +14,7 @@ import { DataModal } from '../../models/dataModal.model';
 export class ModalCoursesComponent implements OnInit {
 
   @Input() data!: DataModal;
+  @Output() refreshList = new EventEmitter();
 
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -21,7 +24,9 @@ export class ModalCoursesComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private service: CourseService,
+    private toaster: ToasterService
   ) { }
 
   ngOnInit() {
@@ -56,9 +61,33 @@ export class ModalCoursesComponent implements OnInit {
       return;
     }
 
-    console.log(JSON.stringify(this.form.value, null, 2));
+    this.decideAction();
+  }
 
+  decideAction(): void {
+    const decide: any = {
+      'add': () => this.addCourse(),
+      'edit': () => false
+    }
+    decide[this.data.action]();
+  }
+
+  addCourse(): void { debugger;
+    this.service.postCourse(this.form.value)
+      .subscribe(
+        () => {
+          this.toaster.success("Novo curso adicionado!");
+          this.closeModalAndRefreshList();
+        },
+        (err) => {
+          this.toaster.error("Não possível adicionar um novo curso!");
+        }
+      )
+  }
+
+  closeModalAndRefreshList(): void {
     this.activeModal.close();
+    this.refreshList.emit();
   }
 
 }

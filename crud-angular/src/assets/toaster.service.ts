@@ -15,11 +15,11 @@ export class ToasterService {
   ) { }
 
   success(msg: string) {
-    this.toastr.success('Sucesso!', msg, this.config);
+    this.toastr.success(msg, 'Sucesso!', this.config);
   }
 
   error(msg: string) {
-    this.toastr.error('Ops!', msg, this.config);
+    this.toastr.error(msg, 'Ops! Algo deu errado', this.config);
   }
 
 }

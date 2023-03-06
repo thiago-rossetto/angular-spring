@@ -16,4 +16,8 @@ export class CourseService {
   getCourses() {
     return this.http.get<Course[]>(environment.api + '/courses');
   }
+
+  postCourse(course: Course) {
+    return this.http.post<Course>(environment.api + '/courses', course);
+  }
 }
