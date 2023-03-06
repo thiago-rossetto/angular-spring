@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from 'src/assets/toaster.service';
+import { Course } from '../../models/course.model';
 
 import { DataModal } from '../../models/dataModal.model';
 import { CourseService } from '../../services/course.service';
@@ -67,7 +68,7 @@ export class ModalCoursesComponent implements OnInit {
   decideAction(): void {
     const decide: any = {
       'add': () => this.addCourse(),
-      'edit': () => false
+      'edit': () => this.editCourse()
     }
     decide[this.data.action]();
   }
@@ -81,6 +82,24 @@ export class ModalCoursesComponent implements OnInit {
         },
         (err) => {
           this.toaster.error("Não possível adicionar um novo curso!");
+        }
+      )
+  }
+
+  editCourse(): void {
+    const body: Course = {
+      id: this.data.course.id,
+      name: this.form.value.name,
+      category: this.form.value.category
+    }
+    this.service.postCourse(body)
+      .subscribe(
+        () => {
+          this.toaster.success("Os dados curso foi atualizado!");
+          this.closeModalAndRefreshList();
+        },
+        (err) => {
+          this.toaster.error("Não possível atualizar os dados do curso!");
         }
       )
   }

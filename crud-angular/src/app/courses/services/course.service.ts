@@ -20,4 +20,8 @@ export class CourseService {
   postCourse(course: Course) {
     return this.http.post<Course>(environment.api + '/courses', course);
   }
+
+  putCourse(course: Course) {
+    return this.http.post<Course>(environment.api + `/courses${course.id}`, course);
+  }
 }
