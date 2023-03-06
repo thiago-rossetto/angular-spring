@@ -72,7 +72,7 @@ export class ModalCoursesComponent implements OnInit {
     decide[this.data.action]();
   }
 
-  addCourse(): void { debugger;
+  addCourse(): void {
     this.service.postCourse(this.form.value)
       .subscribe(
         () => {
