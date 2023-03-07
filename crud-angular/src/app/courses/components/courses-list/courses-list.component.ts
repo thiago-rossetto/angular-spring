@@ -17,6 +17,8 @@ import { ToasterService } from 'src/assets/toaster.service';
 export class CoursesListComponent implements OnInit {
 
   coursesList: Array<Course> = [];
+  enpityList: boolean = false;
+  loadListError: boolean = false;
 
   constructor(
     private service: CourseService,
@@ -28,9 +30,12 @@ export class CoursesListComponent implements OnInit {
     this.service.getCourses().subscribe(
       (res) => {
         this.coursesList = res;
+        this.coursesList.length === 0 ? this.enpityList = true : this.enpityList = false;
+        this.loadListError = false;
       },
       (err) => {
-        this.toastr.error("Não possivel carregar a lista de cursos!")
+        this.toastr.error("Não possivel carregar a lista de cursos!");
+        this.loadListError = true;
       }
     )
   }

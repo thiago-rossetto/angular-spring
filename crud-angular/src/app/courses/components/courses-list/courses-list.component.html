@@ -76,4 +76,14 @@
       </tr>
     </tbody>
   </table>
+  <p *ngIf="enpityList" class="text-center">
+    <ngb-alert [dismissible]="false" type="secondary">
+      <strong>Não existem cursos cadastrados. Adicione novos cursos!</strong>
+    </ngb-alert>
+  </p>
+  <p *ngIf="loadListError" class="text-center">
+    <ngb-alert [dismissible]="false" type="danger">
+      <strong>Não foi possivel carregar a lista de cursos!</strong>
+    </ngb-alert>
+  </p>
 </div>
