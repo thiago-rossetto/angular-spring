@@ -37,7 +37,7 @@ export class ModalCoursesComponent implements OnInit {
           this.data.course.name,
           [
             Validators.required,
-            Validators.maxLength(200)
+            Validators.maxLength(100)
           ]
         ],
         category: [
