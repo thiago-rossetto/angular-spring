@@ -92,10 +92,10 @@ export class ModalCoursesComponent implements OnInit {
       name: this.form.value.name,
       category: this.form.value.category
     }
-    this.service.postCourse(body)
+    this.service.putCourse(body)
       .subscribe(
         () => {
-          this.toaster.success("Os dados curso foi atualizado!");
+          this.toaster.success("O curso foi atualizado!");
           this.closeModalAndRefreshList();
         },
         (err) => {

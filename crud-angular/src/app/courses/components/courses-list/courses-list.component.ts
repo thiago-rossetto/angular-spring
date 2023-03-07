@@ -59,13 +59,19 @@ export class CoursesListComponent implements OnInit {
     })
   }
 
-  openModalDeleteCourse(): void {
+  openModalDeleteCourse(id?: number): void {
     const modal = this.modal.open(ModalDeleteCourseComponent, {
       size: 'md',
       centered: true,
       keyboard: false,
       backdrop: 'static'
     });
+
+    modal.componentInstance.id = id;
+
+    modal.componentInstance.refreshList.subscribe( () => {
+      this.ngOnInit();
+    })
   }
 
 }

@@ -22,6 +22,10 @@ export class CourseService {
   }
 
   putCourse(course: Course) {
-    return this.http.post<Course>(environment.api + `/courses${course.id}`, course);
+    return this.http.put<Course>(environment.api + `/courses/${course.id}`, course);
+  }
+
+  deleteCourse(id: number) {
+    return this.http.delete<Course>(environment.api + `/courses/${id}`);
   }
 }
