@@ -17,24 +17,28 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thiago.crudspring.model.Course;
-import com.thiago.crudspring.repository.CourseRepository;
+import com.thiago.crudspring.service.CourseService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
 
 @Validated
 @RestController
 @RequestMapping("/api/courses")
-@AllArgsConstructor 
 public class CourseController {
 
-    private CourseRepository courseRepository;
+    private final CourseService courseService ;
+
+    public CourseController(
+        CourseService courseService
+    ) {
+        this.courseService = courseService;
+    }
     
     @GetMapping
     public @ResponseBody List<Course> list() {
-        return courseRepository.findAll();
+        return courseService.list();
     }
 
     @GetMapping("/{id}")
@@ -43,7 +47,7 @@ public class CourseController {
         @NotNull
         @Positive
         Long id ) {
-            return courseRepository.findById(id)
+            return courseService.findById(id)
                 .map(course -> ResponseEntity.ok().body(course))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -54,20 +58,15 @@ public class CourseController {
         @RequestBody 
         @Valid 
         Course course ) {
-            return courseRepository.save(course);
+            return courseService.create(course);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Course> update(
         @PathVariable @NotNull @Positive Long id,
         @RequestBody @Valid Course course ) {
-            return courseRepository.findById(id)
-                .map(courseFinded -> {
-                    courseFinded.setName(course.getName());
-                    courseFinded.setCategory(course.getCategory());
-                    Course updated = courseRepository.save(courseFinded);
-                    return ResponseEntity.ok().body(updated);
-                })  
+            return courseService.update(id, course)
+                .map(courseFinded -> ResponseEntity.ok().body(courseFinded))  
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -77,12 +76,10 @@ public class CourseController {
         @NotNull
         @Positive
         Long id ) {
-        return courseRepository.findById(id)
-            .map(courseFinded -> {
-                courseRepository.deleteById(id);
+            if(courseService.delete(id)) {
                 return ResponseEntity.noContent().<Void>build();
-            })  
-            .orElse(ResponseEntity.notFound().build());
+            }
+            return ResponseEntity.notFound().build();
     }
 
 }
