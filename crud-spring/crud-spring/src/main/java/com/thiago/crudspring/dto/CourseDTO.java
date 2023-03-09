@@ -9,6 +9,6 @@ import jakarta.validation.constraints.Pattern;
 public record CourseDTO(
     Long id,
     @NotBlank @NotNull @Length(min = 5, max = 100) String name,
-    @NotNull @Length(max = 10) @Pattern(regexp = "Back-end|Front-end|Full-stack") String categoria) {
+    @NotNull @Length(max = 10) @Pattern(regexp = "Back-end|Front-end|Full-stack") String category) {
 
 }
